@@ -1,0 +1,12 @@
+# Entornos virtuales
+venv/
+.venv/
+env/
+
+# Python
+__pycache__/
+*.pyc
+
+# Configs locales
+.python-version
+.env

@@ -1,4 +1,5 @@
 import google.generativeai as genai
+import os
 
 from app.llm.base_llm import BaseLLM
 from app.config.settings import settings
@@ -21,8 +22,7 @@ class GeminiClient(BaseLLM):
 
         # Configura la API.
         genai.configure(api_key=settings.gemini_api_key)
-
-        # Carga el modelo.
+        # Carga el modelo de Gemini usando google.generativeai
         self.model = genai.GenerativeModel(
             settings.gemini_model
         )
@@ -38,10 +38,7 @@ class GeminiClient(BaseLLM):
             response = self.model.generate_content(
                 prompt
             )
-
-            # Devuelve el texto de la respuesta generada por Gemini
+            # google.genai devuelve un objeto con .text igual que antes
             return response.text
-
-        # Si ocurre una excepción, devuelve un mensaje de error con la información de la excepción
         except Exception as e:
             return f"Gemini error: {str(e)}"
