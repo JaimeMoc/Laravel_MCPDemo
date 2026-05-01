@@ -22,5 +22,13 @@
     {
         "role": "assistant",
         "content": "Hello! How can I assist you with your programming or computer science queries today?\n"
+    },
+    {
+        "role": "user",
+        "content": "Hola"
+    },
+    {
+        "role": "assistant",
+        "content": "Hello! \u00bfC\u00f3mo puedo ayudarte con las cosas de la programaci\u00f3n?\n"
     }
 ]

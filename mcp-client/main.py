@@ -8,7 +8,7 @@ from app.core.state_manager import StateManager
 from app.memory.short_term_memory import ShortTermMemory
 from app.memory.long_term_memory import LongTermMemory
 
-
+# Muestra información de arranque de la aplicación.
 def print_startup_info():
     """
     Print application startup configuration.
@@ -27,7 +27,7 @@ def print_startup_info():
 
     print("===============================\n")
 
-
+# Inicializa todos los componentes del sistema.
 def create_system_components():
     """
     Initialize all system components.
@@ -51,6 +51,7 @@ def create_system_components():
         "long_memory": long_memory
     }
 
+# Núcleo del flujo conversacional: procesa la entrada del usuario, decide acciones, ejecuta herramientas o LLM, y actualiza el contexto y memoria.
 def process_user_input(user_input, components):
     """
     Process a single user input.
@@ -63,16 +64,16 @@ def process_user_input(user_input, components):
     short_memory = components["short_memory"]
     long_memory = components["long_memory"]
 
-    # Add user message to memory
+    # Agregar el mensaje del usuario a la memoria y contexto
     short_memory.add("user", user_input)
     long_memory.add("user", user_input)
     context_manager.add_user_message(user_input)
 
-    # Decide action
+    # Decide la acción a tomar (usar herramienta o LLM)
     decision = decision_engine.decide(user_input)
     tool_result = None
 
-    # Execute tool if needed
+    # Ejecutar herramienta o LLM según la decisión
     if decision["use_tool"]:
 
         tool_name = decision["tool_name"]
@@ -88,7 +89,7 @@ def process_user_input(user_input, components):
 
     else:
 
-        # Use LLM
+        # Usar el LLM para generar la respuesta, proporcionando el contexto actual
         context = context_manager.get_context()
 
         assistant_message = llm_router.generate(
@@ -96,7 +97,7 @@ def process_user_input(user_input, components):
             context=context
         )
 
-    # Save assistant message
+    # Guardar la respuesta del asistente en la memoria y contexto
     short_memory.add("assistant", assistant_message)
     long_memory.add("assistant", assistant_message)
 
@@ -106,6 +107,7 @@ def process_user_input(user_input, components):
 
     return assistant_message
 
+# Bucle interactivo principal para la CLI. Permite al usuario ingresar mensajes, procesa la entrada, y muestra las respuestas del LLM o herramientas
 def interactive_loop(components):
     """
     Interactive CLI loop.
@@ -147,6 +149,7 @@ def interactive_loop(components):
         except Exception as e:
             print(f"Error: {str(e)}")
 
+# Punto de entrada principal de la aplicación.
 def main():
     """
     Main application entry point.

@@ -5,14 +5,14 @@ import os
 # Cargar variables del archivo .env
 load_dotenv()
 
+# Definición de la clase de configuración global usando Pydantic. Permite configurar el MCP Server, LLM (Gemini u Ollama), memoria, y opciones de depuración.
 class Settings(BaseModel):
     """
     Global application settings.
     Supports Gemini (cloud) and Ollama (local LLM).
     """
 
-    # MCP SERVER CONFIG
-
+    # Configuración del MCP SERVER
     mcp_server_url: str = Field(
         default=os.getenv("MCP_SERVER_URL", "http://localhost:8000"),
         description="URL of the MCP server"
@@ -23,15 +23,13 @@ class Settings(BaseModel):
         description="Timeout for MCP requests"
     )
 
-    # LLM PROVIDER SELECTION
-
+    # CONFIGURACIÓN DE LLM
     llm_provider: str = Field(
         default=os.getenv("LLM_PROVIDER", "gemini"),
         description="LLM provider: gemini or ollama"
     )
 
     # GEMINI CONFIG (Cloud)
-
     gemini_api_key: str = Field(
         default=os.getenv("GEMINI_API_KEY", ""),
         description="Gemini API Key"
@@ -43,7 +41,6 @@ class Settings(BaseModel):
     )
 
     # OLLAMA CONFIG (Local)
-
     ollama_base_url: str = Field(
         default=os.getenv("OLLAMA_BASE_URL", "http://localhost:11434"),
         description="Ollama base URL"
@@ -55,7 +52,6 @@ class Settings(BaseModel):
     )
 
     # MEMORY CONFIG
-
     memory_backend: str = Field(
         default=os.getenv("MEMORY_BACKEND", "inmemory"),
         description="Memory backend"
@@ -67,7 +63,6 @@ class Settings(BaseModel):
     )
 
     # APP CONFIG
-
     debug: bool = Field(
         default=os.getenv("DEBUG", "true").lower() == "true",
         description="Debug mode"
