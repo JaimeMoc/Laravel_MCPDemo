@@ -2,18 +2,21 @@
 
 namespace App\Mcp\Servers;
 
+use App\Mcp\Tools\CrearTarea;
+use App\Mcp\Tools\ListarTareas;
+use App\Mcp\Tools\BuscarTareaPorNombre;
 use Laravel\Mcp\Server;
 use Laravel\Mcp\Server\Attributes\Instructions;
 use Laravel\Mcp\Server\Attributes\Name;
 use Laravel\Mcp\Server\Attributes\Version;
 
-#[Name('M C P Server')]
-#[Version('0.0.1')]
+#[Name('G R P Server')]
+#[Version('1.0.0')]
 #[Instructions('Instructions describing how to use the server and its features.')]
-class MCPServer extends Server
+class GRPServer extends Server
 {
     protected array $tools = [
-        //
+        CrearTarea::class,
     ];
 
     protected array $resources = [
